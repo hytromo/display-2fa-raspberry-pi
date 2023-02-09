@@ -19,6 +19,8 @@ PROGRESSBAR_WIDTH = 2
 
 # Blur effect
 CODE_ROTATION_EFFECT_ENABLED = True
+# the more the smoother, but more cpu intensive and a bit slower
+CODE_ROTATION_EFFECT_LOOPS = 25
 
 # 0, 90, 180, 270 depending on how your RPi stands
 DISPLAY_ROTATION_DEGREES = 90
@@ -113,6 +115,17 @@ def main():
             display_key(
                 draw, display_definitions[key]['code'], index, display_definitions[key]['color'])
 
+        if CODE_ROTATION_EFFECT_ENABLED:
+            canvas_orig = canvas
+            for i in range(CODE_ROTATION_EFFECT_LOOPS):
+                enhance = ImageEnhance.Brightness(canvas_orig.copy())
+                canvas = enhance.enhance(1/(CODE_ROTATION_EFFECT_LOOPS - 1)*i)
+                canvas = canvas.filter(
+                    ImageFilter.GaussianBlur(radius=2.7 - i*0.3/(CODE_ROTATION_EFFECT_LOOPS/10)))
+                refresh_image(canvas)
+
+                LCD_Config.Driver_Delay_ms(500/CODE_ROTATION_EFFECT_LOOPS)
+
         refresh_image(canvas)
 
     while True:
@@ -141,14 +154,15 @@ def main():
 
                 if CODE_ROTATION_EFFECT_ENABLED:
                     canvas_orig = canvas
-                    for i in range(10):
-                        enhance = ImageEnhance.Brightness(canvas_orig)
-                        canvas = enhance.enhance(1-0.12*i)
+                    for i in range(CODE_ROTATION_EFFECT_LOOPS):
+                        enhance = ImageEnhance.Brightness(canvas_orig.copy())
+                        canvas = enhance.enhance(
+                            1-1/(CODE_ROTATION_EFFECT_LOOPS-1)*i)
                         canvas = canvas.filter(
-                            ImageFilter.GaussianBlur(radius=1 + i*0.3))
-                        canvas.putalpha(255 - i * 25)
+                            ImageFilter.GaussianBlur(radius=i*0.3/(CODE_ROTATION_EFFECT_LOOPS/10)))
                         refresh_image(canvas)
-                        LCD_Config.Driver_Delay_ms(50)
+                        LCD_Config.Driver_Delay_ms(
+                            500/CODE_ROTATION_EFFECT_LOOPS)
                 else:
                     # make sure that we have the new codes ready
                     LCD_Config.Driver_Delay_ms(200)
