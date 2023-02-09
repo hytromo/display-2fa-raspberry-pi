@@ -1,3 +1,5 @@
+https://user-images.githubusercontent.com/131824/217944674-1608e5ca-1d01-4002-9913-ff53f961b9c4.mp4
+
 # Disclaimer
 
 1. If you leak your 2FA secrets it's like you don't have 2FA turned on. It's a big security risk. Make sure you understand what having your 2FA secrets available inside your RPi means.
