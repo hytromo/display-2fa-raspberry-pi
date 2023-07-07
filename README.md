@@ -19,10 +19,11 @@ https://user-images.githubusercontent.com/131824/217944674-1608e5ca-1d01-4002-99
 1. Install all the required drivers for the display. Run some provided example to make sure that the screen works fine.
 2. Install python 3 if it's missing from your system.
 3. `pip install -r requirements.txt`.
-4. Find your 2FA secrets. That's the strings required to generate the original QR codes you scan and the 2FA codes that you are presented with. I used [this gist](https://gist.github.com/gboudreau/94bb0c11a6209c82418d01a59d958c93) to extract them from Authy, which works at the time of writing this. Alternatively, if you reset your 2FA, most websites give you this secret string along with the QR code.
-5. Replace the logos and the code to contain the services you want. You may alter any global consts as you see fit.
-6. Export your secrets based on the environment variable names in the code, e.g. `export GOOGLE_2FA_SECRET=abcdef..`
-7. Run the script `python main.py` and voila.
+4. Install system dependencies: `sudo apt install fonts-noto-mono oathtool`
+5. Find your 2FA secrets. That's the strings required to generate the original QR codes you scan and the 2FA codes that you are presented with. I used [this gist](https://gist.github.com/gboudreau/94bb0c11a6209c82418d01a59d958c93) to extract them from Authy, which works at the time of writing this. Alternatively, if you reset your 2FA, most websites give you this secret string along with the QR code.
+6. Replace the logos and the code to contain the services you want. You may alter any global consts as you see fit.
+7. Export your secrets based on the environment variable names in the code, e.g. `export GOOGLE_2FA_SECRET=abcdef..`
+8. Run the script `python main.py` and voila.
 
 # Why
 
